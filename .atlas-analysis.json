@@ -1,0 +1,84 @@
+{
+  "projectType": "general",
+  "projectName": "Nigerian Fintech LLMs.txt",
+  "projectDescription": "A curated collection of llms.txt files for Nigerian fintech APIs to help LLMs understand and integrate with these platforms.",
+  "theme": "linden",
+  "primaryColor": "#10B981",
+  "lightColor": "#34D399",
+  "darkColor": "#059669",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "what-is-llmstxt",
+              "how-to-use"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Providers",
+        "groups": [
+          {
+            "group": "Payment Platforms",
+            "pages": [
+              "providers/paystack",
+              "providers/opay"
+            ]
+          },
+          {
+            "group": "Open Banking",
+            "pages": [
+              "providers/mono"
+            ]
+          },
+          {
+            "group": "Banking & Payments",
+            "pages": [
+              "providers/moniepoint"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Contributing",
+            "pages": [
+              "contributing/overview",
+              "contributing/format-guide",
+              "contributing/adding-providers"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "community/support",
+              "community/faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "LLMs.txt files for Mono open banking API",
+    "LLMs.txt files for Paystack payment API",
+    "LLMs.txt files for OPay payment gateway",
+    "LLMs.txt files for Moniepoint banking and payment services",
+    "Standardized documentation format for AI integration",
+    "Open-source contribution model for Nigerian fintech ecosystem"
+  ],
+  "publicApiSurface": [
+    "Mono: Financial data, payments, identity verification, and direct debit APIs",
+    "Paystack: Payment processing, transfers, subscriptions, and terminal APIs",
+    "OPay: Card payments, bank transfers, USSD, wallet, and refund APIs",
+    "Moniepoint: Collections, disbursements, reserved accounts, and invoice APIs"
+  ]
+}
