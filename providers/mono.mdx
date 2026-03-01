@@ -1,0 +1,334 @@
+---
+title: Mono
+description: African open banking platform for financial data and payments
+---
+
+## Overview
+
+Mono is an African open banking platform that provides APIs for accessing financial data, initiating payments, and verifying identities. Mono enables fintechs, lenders, and businesses to securely connect to users' bank accounts across **Nigeria, Ghana, Kenya, and South Africa**.
+
+<CardGroup cols={2}>
+  <Card title="Countries" icon="globe">
+    Nigeria, Ghana, Kenya, South Africa
+  </Card>
+  <Card title="Currencies" icon="money-bill">
+    NGN, GHC, KSH, ZAR
+  </Card>
+  <Card title="Environments" icon="server">
+    Sandbox (free), Live (production)
+  </Card>
+  <Card title="Widget" icon="window">
+    Mono Connect for secure account linking
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Financial Data" icon="chart-line" href="https://docs.mono.co/docs/financial-data/overview">
+    Access bank account data with user permission via Mono Connect
+  </Card>
+  
+  <Card title="Payments" icon="money-bill-transfer" href="https://docs.mono.co/docs/payments/overview">
+    Direct bank debits, transfers, and recurring payments
+  </Card>
+  
+  <Card title="Identity Verification" icon="id-card" href="https://docs.mono.co/docs/lookup/overview">
+    Verify user and business data for KYC compliance
+  </Card>
+  
+  <Card title="Data Enrichment" icon="wand-magic-sparkles" href="https://docs.mono.co/docs/financial-data/enrichment/overview">
+    AI-powered transaction analysis and categorization
+  </Card>
+  
+  <Card title="Direct Debit" icon="repeat" href="https://docs.mono.co/docs/payments/direct-debit/overview">
+    Set up mandates for recurring and subscription payments
+  </Card>
+  
+  <Card title="WhatsApp Payments" icon="whatsapp" href="https://docs.mono.co/docs/whatsapp-payment/overview">
+    Collect payments via WhatsApp using Owo Direct Charge
+  </Card>
+</CardGroup>
+
+## Products & Use Cases
+
+<Tabs>
+  <Tab title="Financial Data">
+    **Mono Connect** - Access bank account data with user permission
+    
+    **Available Data:**
+    - Account Information (balance, type, currency)
+    - Transaction History (with filtering)
+    - Bank Statements (PDF/JSON)
+    - Identity Information (for KYC)
+    - Income Analysis
+    - Credit Worthiness Scoring
+    - Investment Assets & Earnings
+    
+    **Integration Methods:**
+    - SDK Integration (Web, React Native, iOS, Android, Flutter)
+    - Connect Link (hosted by Mono)
+    - Partners API (direct API without widget)
+    
+    [View Documentation](https://docs.mono.co/docs/financial-data/overview)
+  </Tab>
+  
+  <Tab title="Payments">
+    **Payment Options:**
+    
+    **One-time DirectPay**: Single charge payments from customer bank accounts
+    
+    **Recurring Direct Debit**: Mandate-based recurring payments with:
+    - Variable Mandate (flexible amounts within limit)
+    - Fixed Mandate (fixed recurring amounts)
+    - Global Standing Mandate (GSM for specific banks)
+    - Biometric verification for enhanced security
+    
+    **Payouts**: Send money from Mono wallet to bank accounts
+    
+    **Disburse**: Bulk and scheduled payouts
+    
+    **Split Payments**: Allocate payments across multiple accounts
+    
+    [View Documentation](https://docs.mono.co/docs/payments/overview)
+  </Tab>
+  
+  <Tab title="Identity Verification">
+    **Lookup Services:**
+    
+    **Individual Verification:**
+    - BVN (Bank Verification Number) with iGree consent
+    - NIN (National Identification Number)
+    - Int'l Passport
+    - Driver's License
+    - TIN (Tax Identification Number)
+    - Credit History
+    
+    **Business Verification:**
+    - CAC (Corporate Affairs Commission) business registration
+    - Shareholder details
+    - Directors information
+    - Company profile
+    
+    **Other Services:**
+    - Account Number validation
+    - House Address verification
+    - Mashup Lookup (NIN, BVN, DOB combined)
+    
+    **Prove (eKYC)**: Multi-tier KYC verification with facial recognition
+    
+    [View Documentation](https://docs.mono.co/docs/lookup/overview)
+  </Tab>
+  
+  <Tab title="Data Enrichment">
+    **AI-Powered Analysis:**
+    
+    - **Transaction Categorization**: Automatically categorize transactions into spending categories
+    - **Transaction Metadata**: Extract merchant names, logos, and context
+    - **Statement Insights**: Generate financial health insights from bank statements
+    
+    Supports both single transactions and bulk CSV uploads.
+    
+    [View Documentation](https://docs.mono.co/docs/financial-data/enrichment/overview)
+  </Tab>
+</Tabs>
+
+## Authentication
+
+All API requests require authentication using the `mono-sec-key` header with your App secret key:
+
+```bash
+GET /v2/accounts/{id}
+Host: api.withmono.com
+mono-sec-key: your-secret-key
+```
+
+## Environments
+
+| Environment | Description | Cost |
+|-------------|-------------|------|
+| **Sandbox** | Free testing environment with sample data | Free |
+| **Live** | Production environment (requires wallet funding) | Pay-as-you-go |
+
+[Sandbox Test Credentials](https://docs.mono.co/docs/sandbox)
+
+## Integration Flow
+
+<Steps>
+  <Step title="Create an App">
+    Create an application on the Mono dashboard and retrieve your API keys (Public Key and Secret Key).
+    
+    [Create App Guide](https://docs.mono.co/docs/create-app)
+  </Step>
+  
+  <Step title="Integrate Mono Connect">
+    Use the Mono Connect Widget to securely link user accounts via SDK or Connect Link.
+    
+    [SDK Integration Guide](https://docs.mono.co/docs/financial-data/integration-guide)
+  </Step>
+  
+  <Step title="Exchange Authorization Code">
+    Exchange the authorization code for a permanent Account ID.
+    
+    ```bash
+    POST /v2/accounts/auth
+    {
+      "code": "code_xyz123"
+    }
+    ```
+  </Step>
+  
+  <Step title="Access Financial Data">
+    Use the Account ID to retrieve account information, transactions, statements, and more.
+    
+    ```bash
+    GET /v2/accounts/{id}
+    GET /v2/accounts/{id}/transactions
+    GET /v2/accounts/{id}/statement
+    ```
+  </Step>
+  
+  <Step title="Set up Webhooks">
+    Configure webhook URLs to receive real-time notifications for account updates and transactions.
+    
+    [Webhooks Documentation](https://docs.mono.co/docs/webhooks)
+  </Step>
+</Steps>
+
+## Key API Endpoints
+
+<Accordion title="Financial Data APIs">
+  - **Authorization**: `POST /v2/accounts/auth` - Exchange authorization code for Account ID
+  - **Account Information**: `GET /v2/accounts/{id}` - Get account details and balance
+  - **Transactions**: `GET /v2/accounts/{id}/transactions` - Fetch transaction history
+  - **Statements**: `GET /v2/accounts/{id}/statement` - Generate bank statements (PDF/JSON)
+  - **Identity**: `GET /v2/accounts/{id}/identity` - Retrieve verified user identity
+  - **Income**: `GET /v2/accounts/{id}/income` - Analyze income patterns
+  - **Credit Worthiness**: `POST /v2/accounts/{id}/creditworthiness` - Generate credit scores
+  
+  [Full API Reference](https://docs.mono.co/api)
+</Accordion>
+
+<Accordion title="Payment APIs">
+  - **Initiate Payment**: `POST /v2/payments/initiate` - Create one-time DirectPay transaction
+  - **Create Mandate**: `POST /v2/payments/mandate` - Set up recurring direct debit
+  - **Debit Account**: `POST /v2/payments/debit` - Execute debit against mandate
+  - **Payouts**: `POST /v2/payments/payouts` - Send money to bank accounts
+  - **Disburse**: `POST /v2/disburse` - Bulk and scheduled payouts
+  
+  [Payment API Reference](https://docs.mono.co/docs/payments/overview)
+</Accordion>
+
+<Accordion title="Identity Verification APIs">
+  - **BVN Lookup**: `POST /v2/lookup/bvn/initiate` - Verify Bank Verification Number
+  - **CAC Lookup**: `GET /v3/lookup/cac` - Verify business registration
+  - **Account Number**: `POST /v2/lookup/account` - Validate bank account
+  - **NIN Lookup**: `POST /v2/lookup/nin` - Verify National ID
+  - **Prove**: `POST /v1/prove/initiate` - Multi-tier KYC verification
+  
+  [Lookup API Reference](https://docs.mono.co/docs/lookup/overview)
+</Accordion>
+
+## Webhooks
+
+Mono sends webhooks for real-time notifications:
+
+**Financial Data Events:**
+- `mono.events.account_connected` - User successfully links account
+- `mono.events.account_updated` - Account data is refreshed
+- `mono.events.account_unlinked` - User disconnects account
+
+**Payment Events:**
+- `mono.events.payment.successful` - Payment completed
+- `mono.events.payment.failed` - Payment failed
+- `mono.events.mandate.active` - Direct debit mandate activated
+- `mono.events.debit.successful` - Recurring debit completed
+
+[Webhook Documentation](https://docs.mono.co/docs/webhooks)
+
+## Important Notes
+
+<Note>
+  - All API requests require the `mono-sec-key` header with your App secret key
+  - Currency values are in **lowest denomination** (NGN: kobo, GHC: pesewa, KSH/ZAR: cents)
+  - Sandbox is **free** for testing; Live mode requires wallet funding
+  - The Mono Connect Widget securely handles user authentication
+  - Always configure webhooks for real-time transaction updates
+</Note>
+
+## Developer Tools
+
+<CardGroup cols={2}>
+  <Card title="SDKs" icon="code" href="https://docs.mono.co/docs/sdks">
+    Web, React Native, iOS, Android, Flutter SDKs
+  </Card>
+  
+  <Card title="Libraries" icon="book-bookmark" href="https://docs.mono.co/docs/libraries">
+    Node.js, Python, PHP, Ruby, and more
+  </Card>
+  
+  <Card title="Postman Collection" icon="file-import" href="https://docs.mono.co/docs/postman">
+    Pre-configured API collection for testing
+  </Card>
+  
+  <Card title="Brand Assets" icon="palette" href="https://docs.mono.co/docs/brand-assets">
+    Logos, icons, and branding guidelines
+  </Card>
+</CardGroup>
+
+## Using with AI Tools
+
+Add Mono's llms.txt to your AI context:
+
+```bash
+# Direct URL
+https://docs.mono.co/llms.txt
+
+# Or use with Claude Desktop
+{
+  "mcpServers": {
+    "mono": {
+      "command": "npx",
+      "args": ["-y", "@nigerianfintechllmstxt/server", "--provider", "mono"]
+    }
+  }
+}
+```
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="book" href="https://docs.mono.co/api">
+    Complete API documentation with examples
+  </Card>
+  
+  <Card title="Coverage" icon="map" href="https://docs.mono.co/docs/coverage">
+    Supported banks across all countries
+  </Card>
+  
+  <Card title="Developer Community" icon="users" href="https://devwithmono.slack.com">
+    Join the Mono developer Slack community
+  </Card>
+  
+  <Card title="Support Center" icon="life-ring" href="https://support.mono.co/en">
+    Help articles and customer support
+  </Card>
+</CardGroup>
+
+## llms.txt File
+
+The Mono llms.txt file is available at:
+
+**Source**: `~/workspace/source/mono/llms.txt`
+
+**Online**: [https://docs.mono.co/llms.txt](https://docs.mono.co/llms.txt)
+
+This file contains comprehensive documentation for:
+- Financial data access APIs
+- Payment and direct debit APIs
+- Identity verification (Lookup)
+- Data enrichment services
+- Customer management
+- Webhook events
+- Authentication and security
+- Developer tools and SDKs

@@ -1,0 +1,263 @@
+---
+title: How to Use
+description: Learn how to use these llms.txt files with AI coding assistants and LLM-powered tools to accelerate your Nigerian fintech API integration.
+---
+
+## Overview
+
+These `llms.txt` files are designed to work with AI coding assistants, chatbots, and any LLM-powered development tool. By pointing your AI assistant to the relevant file, you give it comprehensive context about the API before asking integration questions.
+
+## Using with AI Coding Assistants
+
+### Cursor
+
+Cursor is an AI-powered code editor that can reference external documentation.
+
+<Steps>
+  <Step title="Open Cursor Settings">
+    Go to **Settings** → **Cursor Settings** → **Documentation**
+  </Step>
+  
+  <Step title="Add llms.txt URL">
+    Add the URL to the relevant llms.txt file from this repository:
+    
+    ```
+    https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/mono/llms.txt
+    https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/paystack/llms.txt
+    https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/opay/llms.txt
+    https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/moniepoint/llms.txt
+    ```
+  </Step>
+  
+  <Step title="Start Coding">
+    Ask Cursor questions about the API:
+    
+    - "How do I authenticate with Mono's API?"
+    - "Show me how to create a Paystack payment"
+    - "What endpoints does OPay provide for bank transfers?"
+  </Step>
+</Steps>
+
+### Claude Code (Anthropic)
+
+When using Claude or Claude Code, you can reference these files directly in your prompts:
+
+```markdown
+Before we start, please read this llms.txt file for context:
+
+https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/mono/llms.txt
+
+Now help me integrate Mono's account linking feature into my Node.js application.
+```
+
+### Windsurf
+
+Windsurf supports context files that you can add to your project:
+
+<Steps>
+  <Step title="Create .windsurf folder">
+    In your project root, create a `.windsurf` directory
+  </Step>
+  
+  <Step title="Add context file">
+    Create a file named `context.md` with links to the llms.txt files:
+    
+    ```markdown .windsurf/context.md
+    # API Context
+    
+    - [Mono API](https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/mono/llms.txt)
+    - [Paystack API](https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/paystack/llms.txt)
+    ```
+  </Step>
+  
+  <Step title="Reference in prompts">
+    Windsurf will automatically use this context when you ask API-related questions
+  </Step>
+</Steps>
+
+## Using with MCP Servers
+
+### Mono MCP Server
+
+The [Mono MCP server](https://github.com/sin4ch/mono-mcp) uses the Mono llms.txt file internally to provide better context to Claude Desktop.
+
+<Steps>
+  <Step title="Install the MCP server">
+    ```bash
+    npm install -g @sin4ch/mono-mcp
+    ```
+  </Step>
+  
+  <Step title="Configure Claude Desktop">
+    Add the server to your `claude_desktop_config.json`:
+    
+    ```json
+    {
+      "mcpServers": {
+        "mono": {
+          "command": "mono-mcp",
+          "env": {
+            "MONO_SECRET_KEY": "your_secret_key"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+  
+  <Step title="Use in Claude">
+    Ask Claude to help with Mono integration - it will use the MCP server for accurate, up-to-date information
+  </Step>
+</Steps>
+
+<Info>
+  MCP (Model Context Protocol) allows LLMs to access external data sources and APIs in a standardized way.
+</Info>
+
+## Best Practices
+
+### 1. Be Specific About the Provider
+
+When asking questions, mention which fintech provider you're working with:
+
+<CodeGroup>
+```markdown Good Prompt
+Using the Mono API, how do I retrieve a customer's transaction history with pagination?
+```
+
+```markdown Bad Prompt
+How do I get transactions?
+```
+</CodeGroup>
+
+### 2. Reference Endpoint Details
+
+Ask about specific endpoints mentioned in the llms.txt file:
+
+```markdown
+I see Paystack has a "Verify Transaction" endpoint. Can you show me how to use it in Node.js with error handling?
+```
+
+### 3. Combine Multiple Concepts
+
+Ask questions that span multiple sections of the documentation:
+
+```markdown
+How do I set up OPay's webhook notifications and verify the signature in a Python Flask app?
+```
+
+### 4. Request Code Examples
+
+Ask for implementation examples in your preferred language:
+
+```markdown
+Using the Moniepoint (Monnify) API, show me a complete TypeScript example for creating a reserved virtual account with proper error handling and type safety.
+```
+
+## Example Prompts
+
+Here are effective prompts for working with these APIs:
+
+<AccordionGroup>
+  <Accordion title="Mono - Account Linking">
+    ```markdown
+    Reference: https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/mono/llms.txt
+    
+    I need to integrate Mono Connect to link a user's bank account. Show me:
+    1. How to initialize the Connect Widget
+    2. How to exchange the authorization code for an account ID
+    3. How to fetch the account balance and transactions
+    
+    Use Node.js with TypeScript and include error handling.
+    ```
+  </Accordion>
+  
+  <Accordion title="Paystack - Subscription Billing">
+    ```markdown
+    Reference: https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/paystack/llms.txt
+    
+    Help me implement subscription billing with Paystack:
+    1. Create a plan for NGN 5,000 monthly
+    2. Subscribe a customer to the plan
+    3. Handle webhook events for successful/failed charges
+    
+    Use Python with Flask and proper webhook signature verification.
+    ```
+  </Accordion>
+  
+  <Accordion title="OPay - Card Payment">
+    ```markdown
+    Reference: https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/opay/llms.txt
+    
+    Show me how to accept a 3DS card payment with OPay:
+    1. Create a cashier payment session
+    2. Redirect the user to OPay checkout
+    3. Verify the payment status after redirect
+    
+    Use PHP with proper HMAC-SHA512 signature generation.
+    ```
+  </Accordion>
+  
+  <Accordion title="Moniepoint - Bank Transfer">
+    ```markdown
+    Reference: https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/moniepoint/llms.txt
+    
+    I want to implement single bank transfers with Monnify:
+    1. Authenticate and get an access token
+    2. Initiate a transfer to a Nigerian bank account
+    3. Handle 2FA OTP if required
+    
+    Use Node.js with async/await and proper error handling.
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Direct File Access
+
+You can also download and use these files locally:
+
+<CodeGroup>
+```bash cURL
+# Download Mono llms.txt
+curl -O https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/mono/llms.txt
+
+# Download Paystack llms.txt
+curl -O https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/paystack/llms.txt
+```
+
+```bash wget
+# Download OPay llms.txt
+wget https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/opay/llms.txt
+
+# Download Moniepoint llms.txt
+wget https://raw.githubusercontent.com/sin4ch/nigerian-fintech-llms-txt/main/moniepoint/llms.txt
+```
+</CodeGroup>
+
+## Tips for Success
+
+<CardGroup cols={2}>
+  <Card title="Use Fresh Context" icon="rotate">
+    Periodically refresh the llms.txt file reference to get the latest API updates
+  </Card>
+  
+  <Card title="Test in Sandbox" icon="flask">
+    Always test integrations in sandbox/test mode before going live
+  </Card>
+  
+  <Card title="Verify Responses" icon="shield-check">
+    Always verify transaction status server-side, never trust client-side callbacks alone
+  </Card>
+  
+  <Card title="Handle Errors" icon="triangle-exclamation">
+    Ask your AI assistant to include proper error handling for API failures
+  </Card>
+</CardGroup>
+
+## Contributing
+
+If you find these files helpful or want to suggest improvements:
+
+<Card title="GitHub Repository" icon="github" href="https://github.com/sin4ch/nigerian-fintech-llms-txt">
+  Visit the repository to contribute or report issues
+</Card>

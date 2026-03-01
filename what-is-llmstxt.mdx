@@ -1,0 +1,143 @@
+---
+title: What is llms.txt?
+description: Understanding the llms.txt standard and how it helps Large Language Models understand your documentation better.
+---
+
+## Overview
+
+[`llms.txt`](https://llmstxt.org/) is a standard for helping Large Language Models (LLMs) understand your documentation. Companies place it at the root of their docs site (e.g., `docs.example.com/llms.txt`) so AI tools can quickly find and use the right resources.
+
+<Info>
+  The llms.txt format is designed to be both human-readable and optimized for LLM consumption.
+</Info>
+
+## Why llms.txt Exists
+
+Modern documentation sites are often large, complex, and difficult for LLMs to navigate efficiently. Common problems include:
+
+- **Too much content**: LLMs struggle to process entire documentation sites due to context window limitations
+- **Poor structure**: Nested navigation and dynamic content make it hard for AI to find relevant information
+- **Missing context**: LLMs don't know which pages are most important or how they relate to each other
+
+The `llms.txt` format solves these problems by providing a **curated, structured overview** of your documentation specifically designed for AI consumption.
+
+## How It Helps LLMs
+
+When an AI coding assistant or chatbot needs to understand an API, it can:
+
+1. **Fetch the llms.txt file** from a known location
+2. **Parse the structured content** to understand the documentation hierarchy
+3. **Access relevant information** without crawling the entire documentation site
+4. **Provide better answers** based on accurate, up-to-date API information
+
+<Tip>
+  This approach reduces the tokens needed to understand an API from hundreds of thousands to just thousands.
+</Tip>
+
+## Format and Structure
+
+An `llms.txt` file typically consists of two main sections separated by `---`:
+
+### 1. Documentation Overview
+
+A curated list of documentation pages with descriptions:
+
+```markdown
+# API Name
+
+> Brief description of the API and its capabilities
+
+Important notes:
+- Authentication requirements
+- Key concepts
+- Rate limits or restrictions
+
+## Getting Started
+- [Quickstart](url): Description of what this guide covers
+- [Authentication](url): How to authenticate API requests
+
+## Core Features
+- [Feature 1](url): Description
+- [Feature 2](url): Description
+```
+
+### 2. API Reference
+
+A comprehensive list of API endpoints with methods and descriptions:
+
+```markdown
+# API Reference
+
+> Complete API reference with base URL and authentication details
+
+## Resource Name
+- [Endpoint Name](url): `METHOD /path` - Description of what this endpoint does
+- [Another Endpoint](url): `POST /path` - Description
+```
+
+## Real-World Example
+
+Here's how Mono's llms.txt is structured:
+
+<CodeGroup>
+```markdown Documentation Section
+# Mono Banking API Documentation
+
+> Mono is an African open banking platform...
+
+## Getting Started
+- [Definitions](https://docs.mono.co/docs/definitions): Key terms including Account ID, Token...
+- [Use Cases](https://docs.mono.co/docs/use-cases): Common implementation scenarios...
+
+## Financial Data (Mono Connect)
+- [Overview](https://docs.mono.co/docs/financial-data/overview): Introduction to Mono Connect...
+```
+
+```markdown API Reference Section
+---
+
+# API Reference
+
+> Complete API reference for Mono's African open banking platform
+
+## Customer API
+- [Create Individual Customer](https://docs.mono.co/api/customer/create-a-customer): `POST` - Register an individual customer...
+- [List All Customers](https://docs.mono.co/api/customer/list-all-customers): `GET` - Retrieve paginated list...
+```
+</CodeGroup>
+
+## Benefits for Nigerian Fintech APIs
+
+For Nigerian fintech companies, adopting `llms.txt` means:
+
+<CardGroup cols={2}>
+  <Card title="Faster Integration" icon="rocket">
+    Developers using AI assistants can integrate your API faster with better context
+  </Card>
+  
+  <Card title="Better Developer Experience" icon="face-smile">
+    AI tools can provide more accurate answers about your API documentation
+  </Card>
+  
+  <Card title="Reduced Support Load" icon="headset">
+    Fewer basic questions as AI assistants can answer common integration queries
+  </Card>
+  
+  <Card title="Competitive Advantage" icon="chart-line">
+    Stand out as AI-friendly and developer-focused in the fintech ecosystem
+  </Card>
+</CardGroup>
+
+## Learn More
+
+Visit [llmstxt.org](https://llmstxt.org/) to learn more about the standard and how to implement it for your own documentation.
+
+<Note>
+  Mintlify offers [automatic llms.txt generation](https://www.mintlify.com/docs/ai/llmstxt) for documentation sites built with their platform.
+</Note>
+
+## Next Steps
+
+<Card title="How to Use These Files" icon="book-open" href="/overview/how-to-use">
+  Learn how to use these llms.txt files with AI coding assistants like Cursor and Claude Code.
+</Card>

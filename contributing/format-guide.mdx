@@ -1,0 +1,330 @@
+---
+title: 'llms.txt Format Specification'
+description: 'Complete guide to structuring llms.txt files for Nigerian fintech providers'
+---
+
+## What is llms.txt?
+
+The [`llms.txt` standard](https://llmstxt.org/) is a lightweight format that helps Large Language Models quickly understand documentation. Instead of crawling entire documentation sites, LLMs can read a single, well-structured file containing:
+
+- Links to key documentation pages with descriptions
+- Complete API reference information
+- Integration guides and SDKs
+- Authentication and best practices
+
+<Note>
+Flutterwave already uses this standard via [Mintlify's automatic generation](https://www.mintlify.com/docs/ai/llmstxt). This project aims to bring the same benefits to other Nigerian fintech platforms.
+</Note>
+
+## File Structure Overview
+
+Every `llms.txt` file consists of two main sections separated by `---`:
+
+```markdown
+# Provider Name
+
+> Brief description of the provider
+
+[Documentation Overview Section]
+
+---
+
+# API Reference
+
+> API reference introduction
+
+[API Reference Section]
+```
+
+## Section 1: Documentation Overview
+
+The first section provides a curated map of the provider's documentation with links and descriptions.
+
+### Required Components
+
+<Steps>
+  <Step title="Provider Header">
+    Start with an H1 heading containing the provider name:
+    
+    ```markdown
+    # Mono Banking API Documentation
+    ```
+  </Step>
+  
+  <Step title="Overview Quote Block">
+    Add a blockquote with a comprehensive description of the platform:
+    
+    ```markdown
+    > Mono is an African open banking platform that provides APIs 
+    > for accessing financial data, initiating payments, and verifying 
+    > identities across Nigeria, Ghana, Kenya, and South Africa.
+    ```
+  </Step>
+  
+  <Step title="Important Notes">
+    Include a bullet list of critical integration information:
+    
+    ```markdown
+    Important notes:
+    
+    - Authentication requirements
+    - Available environments (sandbox/production)
+    - Currency handling specifics
+    - Key integration concepts
+    ```
+  </Step>
+  
+  <Step title="Documentation Links">
+    Organize documentation links by category with descriptions:
+    
+    ```markdown
+    ## Getting Started
+    
+    - [Quick Start](url): Brief description of what this page covers
+    - [Authentication](url): How to authenticate API requests
+    - [Webhooks](url): Setting up webhook notifications
+    
+    ## Payments
+    
+    - [Payments Overview](url): Introduction to payment APIs
+    - [Single Transfers](url): Sending money to individual recipients
+    ```
+  </Step>
+</Steps>
+
+### Documentation Link Format
+
+Each documentation link should follow this pattern:
+
+```markdown
+- [Link Text](full-url): Concise description of the page content
+```
+
+**Guidelines:**
+- Use descriptive link text that indicates the topic
+- Include the full URL to the documentation page
+- Add a brief description (1-2 sentences) explaining what the page covers
+- Group related links under H2 headings (##)
+- Use H3 headings (###) for sub-categories when needed
+
+<Tip>
+Study existing files like [Paystack's llms.txt](https://github.com/sin4ch/nigerian-fintech-llms/blob/main/paystack/llms.txt) to see how comprehensive documentation is organized.
+</Tip>
+
+### Organizational Structure
+
+Common categories for Nigerian fintech platforms:
+
+- **Getting Started** - Quickstarts, authentication, environments, sandbox
+- **Integration Guides** - SDKs, webhooks, testing
+- **Core Features** - Main product offerings (payments, transfers, data access)
+- **Advanced Features** - Specialized capabilities (recurring payments, split payments)
+- **Identity & Verification** - KYC, account verification
+- **Developer Tools** - SDKs, libraries, plugins
+- **Reference** - Error codes, supported banks, API reference
+
+## Section 2: API Reference
+
+After the `---` separator, include detailed API reference information.
+
+### Required Components
+
+<Steps>
+  <Step title="API Reference Header">
+    Start with an H1 heading:
+    
+    ```markdown
+    # API Reference
+    ```
+  </Step>
+  
+  <Step title="API Overview Quote">
+    Describe the API's purpose and structure:
+    
+    ```markdown
+    > Complete API reference for Paystack. All endpoints use RESTful 
+    > conventions with JSON request/response bodies. Authentication 
+    > uses Bearer tokens with your secret key.
+    ```
+  </Step>
+  
+  <Step title="Base URLs & Environments">
+    Document API base URLs:
+    
+    ```markdown
+    ## API Environments
+    
+    | Environment | Base URL |
+    |-------------|----------|
+    | Test | https://api.paystack.co |
+    | Live | https://api.paystack.co |
+    ```
+  </Step>
+  
+  <Step title="Authentication Details">
+    Explain authentication methods:
+    
+    ```markdown
+    ## Authentication
+    
+    All API requests require authentication using Bearer tokens:
+    
+    ```bash
+    Authorization: Bearer sk_test_your_secret_key
+    ```
+    
+    - **Secret keys** (sk_test_*, sk_live_*): Server-side requests
+    - **Public keys** (pk_test_*, pk_live_*): Client-side SDK initialization
+    ```
+  </Step>
+  
+  <Step title="API Endpoints">
+    Document each endpoint with:
+    - HTTP method and path
+    - Purpose description
+    - Request parameters
+    - Response format
+    - Example requests/responses (if space permits)
+    
+    ```markdown
+    ## Transactions
+    
+    ### Initialize Transaction
+    `POST /transaction/initialize`
+    
+    Initializes a payment transaction.
+    
+    **Request Body:**
+    - `email` (string, required): Customer's email
+    - `amount` (integer, required): Amount in kobo
+    - `currency` (string, optional): Currency code (NGN, GHS, etc.)
+    
+    **Response:** Returns transaction reference and authorization URL
+    ```
+  </Step>
+</Steps>
+
+### API Documentation Best Practices
+
+1. **Group by resource** - Organize endpoints by resource type (Transactions, Customers, etc.)
+2. **Include common parameters** - Document shared request/response fields
+3. **Specify data types** - Indicate string, integer, boolean, array, object
+4. **Mark required fields** - Clearly indicate which parameters are mandatory
+5. **Document error codes** - List common error responses
+6. **Include rate limits** - Mention any API rate limiting
+
+<Note>
+The API Reference section doesn't need to be exhaustive - focus on the most commonly used endpoints. Link to full API documentation for comprehensive details.
+</Note>
+
+## Complete Template
+
+Here's a minimal template to get started:
+
+```markdown
+# [Provider Name]
+
+> [Provider description - what they do, regions supported, main features]
+
+Important notes:
+
+- [Authentication method]
+- [Environment information]
+- [Currency handling]
+- [Key integration concepts]
+
+## Getting Started
+
+- [Quick Start](url): [Description]
+- [Authentication](url): [Description]
+- [Sandbox Testing](url): [Description]
+
+## [Main Product Category]
+
+- [Feature 1](url): [Description]
+- [Feature 2](url): [Description]
+
+## [Additional Categories...]
+
+---
+
+# API Reference
+
+> [API description - RESTful, authentication method, data format]
+
+## API Environments
+
+| Environment | Base URL |
+|-------------|----------|
+| Test | [url] |
+| Live | [url] |
+
+## Authentication
+
+[Authentication explanation with examples]
+
+## [Resource 1]
+
+### [Endpoint Name]
+`[METHOD] [/path]`
+
+[Description]
+
+**Request Parameters:**
+- `param1` (type, required/optional): Description
+
+**Response:** [Description]
+
+## [Additional Resources...]
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Be Comprehensive" icon="list-check">
+    Include all major features, but prioritize commonly used functionality
+  </Card>
+  <Card title="Stay Current" icon="arrow-rotate-right">
+    Use the latest API version and documentation
+  </Card>
+  <Card title="Be Accurate" icon="bullseye">
+    Verify all information against official documentation
+  </Card>
+  <Card title="Be Clear" icon="sparkles">
+    Write concise descriptions that help LLMs understand context
+  </Card>
+</CardGroup>
+
+## Quality Checklist
+
+Before submitting, verify your `llms.txt` file:
+
+- [ ] Includes provider name and comprehensive overview
+- [ ] Lists important integration notes upfront
+- [ ] Organizes documentation links by logical categories
+- [ ] Every link includes a descriptive explanation
+- [ ] Contains `---` separator between sections
+- [ ] Includes API reference with base URLs
+- [ ] Documents authentication methods
+- [ ] Groups API endpoints by resource type
+- [ ] Specifies parameter types and requirements
+- [ ] Uses consistent formatting throughout
+- [ ] Contains no broken links
+- [ ] Reflects current API version
+
+## Examples to Study
+
+Review these well-structured examples:
+
+- **[Mono](https://github.com/sin4ch/nigerian-fintech-llms/blob/main/mono/llms.txt)** - Comprehensive open banking documentation
+- **[Paystack](https://github.com/sin4ch/nigerian-fintech-llms/blob/main/paystack/llms.txt)** - Payment gateway with multiple products
+- **[OPay](https://github.com/sin4ch/nigerian-fintech-llms/blob/main/opay/llms.txt)** - Multi-method payment processing
+- **[Moniepoint](https://github.com/sin4ch/nigerian-fintech-llms/blob/main/moniepoint/llms.txt)** - Business banking APIs
+
+## Next Steps
+
+Ready to create your first `llms.txt` file? Follow our [Adding Providers guide](/contributing/adding-providers) for step-by-step instructions.
+
+<Card title="Adding Providers Guide" icon="plus" href="/contributing/adding-providers">
+  Learn how to contribute a new provider to the repository
+</Card>

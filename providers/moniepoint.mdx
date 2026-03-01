@@ -1,0 +1,385 @@
+---
+title: Moniepoint
+description: CBN-licensed financial institution for business banking and payments
+---
+
+## Overview
+
+Moniepoint Inc. (formerly TeamApt) is a CBN-licensed financial institution providing payment and banking services for businesses and consumers in Nigeria. Operating as a CBN-licensed Switch, Processor, and Microfinance Bank, Moniepoint processes **$250B annually** and serves **20M+ accounts** with comprehensive financial services.
+
+The B2B payment gateway operates under the **Monnify** brand (developers.monnify.com), supporting NGN payments via cards, bank transfers, USSD, reserved virtual accounts, direct debits, and offline cash collections.
+
+<CardGroup cols={2}>
+  <Card title="Primary Market" icon="globe">
+    Nigeria (expanding to Kenya, UK, US)
+  </Card>
+  <Card title="Currency" icon="money-bill">
+    NGN (Nigerian Naira)
+  </Card>
+  <Card title="Regulation" icon="shield-check">
+    CBN-licensed MFB, NDIC-insured
+  </Card>
+  <Card title="Settlement" icon="clock">
+    Same-day for transfers, next working day for cards
+  </Card>
+</CardGroup>
+
+## Key Products
+
+<CardGroup cols={2}>
+  <Card title="Business Account" icon="building" href="https://moniepoint.com/ng/business/business-account">
+    Free CBN-licensed business bank account with instant verification and 24/7 support
+  </Card>
+  
+  <Card title="Payment Collection" icon="hand-holding-dollar" href="https://developers.monnify.com/docs/collections">
+    Accept payments via bank transfer, cards, USSD, and reserved accounts (1.5% fee, capped at ₦2,000)
+  </Card>
+  
+  <Card title="Disbursements" icon="paper-plane" href="https://developers.monnify.com/docs/disbursements">
+    Single and bulk transfers to Nigerian bank accounts with 2FA and async processing
+  </Card>
+  
+  <Card title="POS Terminals" icon="credit-card-front" href="https://moniepoint.com/ng/business/point-of-sale-terminal">
+    Physical terminals with instant settlement and 99.9% reliability (₦21,500)
+  </Card>
+  
+  <Card title="Reserved Accounts" icon="vault" href="https://developers.monnify.com/docs/collections/customer-reserved-account">
+    Dedicated virtual accounts for customers - ideal for wallet funding
+  </Card>
+  
+  <Card title="Direct Debits" icon="repeat" href="https://developers.monnify.com/docs/collections/direct-debits">
+    Recurring payments via Open/Closed and Flexible/Fixed mandates
+  </Card>
+</CardGroup>
+
+## Payment Channels
+
+<Tabs>
+  <Tab title="One-Time Payments">
+    Accept single payments via:
+    
+    - **Bank Transfer**: Dynamic virtual accounts generated per transaction
+    - **Debit Cards**: Visa, Mastercard, Verve with PIN/OTP/3DS
+    - **USSD**: Dial-to-pay codes (no internet required)
+    - **Phone Number**: Direct payment via phone
+    
+    Integration via:
+    - Monnify Checkout JS SDK
+    - Direct API calls
+    - Payment Links (no-code)
+    
+    [View Documentation](https://developers.monnify.com/docs/collections/one-time-payment)
+  </Tab>
+  
+  <Tab title="Reserved Accounts">
+    **Permanent virtual accounts** assigned to specific customers:
+    
+    - Dedicated account number per customer
+    - Automatic payment reconciliation
+    - Ideal for wallet funding and utility billing
+    - Requires BVN or NIN for KYC
+    
+    ```json
+    POST /api/v2/bank-transfer/reserved-accounts
+    {
+      "accountReference": "cust_12345",
+      "accountName": "John Doe",
+      "currencyCode": "NGN",
+      "contractCode": "your_contract_code",
+      "customerEmail": "john@example.com",
+      "bvn": "22222222222",
+      "customerName": "John Doe"
+    }
+    ```
+    
+    [View Documentation](https://developers.monnify.com/docs/collections/customer-reserved-account)
+  </Tab>
+  
+  <Tab title="Direct Debits">
+    **Mandate-based recurring payments:**
+    
+    **Mandate Types:**
+    - **Open Flexible**: Varying amounts, no end date (utility billing)
+    - **Open Fixed**: Fixed amount, no end date (subscriptions)
+    - **Closed Flexible**: Varying amounts with end date (instalment plans)
+    - **Closed Fixed**: Fixed amount with end date (insurance)
+    
+    **Routes:**
+    - TeamApt (faster)
+    - NIBSS (broader bank support)
+    
+    **Flow:**
+    1. Create mandate authorization link
+    2. Customer authorizes via link (valid 30 days)
+    3. Status: PENDING → ACTIVATED / FAILED / CANCELLED
+    4. Execute debits against active mandate
+    
+    [View Documentation](https://developers.monnify.com/docs/collections/direct-debits)
+  </Tab>
+  
+  <Tab title="Offline Collections">
+    **Cash payments at Moniepoint agent locations:**
+    
+    - Coverage: Every LGA in Nigeria
+    - Product Types: Fixed, Variable, Invoice, Merchant Invoice
+    - Webhook notification on successful collection
+    - Payment method in webhook: "CASH"
+    
+    Ideal for:
+    - Customers without bank accounts
+    - Rural/underbanked areas
+    - Cash-based businesses
+    
+    [View Documentation](https://developers.monnify.com/docs/collections/offline-payin)
+  </Tab>
+</Tabs>
+
+## Authentication
+
+Monnify uses a two-step authentication process:
+
+<Steps>
+  <Step title="Generate Access Token">
+    POST to `/api/v1/auth/login` with Basic auth (base64 of `apiKey:secretKey`):
+    
+    ```bash
+    POST /api/v1/auth/login
+    Authorization: Basic base64(apiKey:secretKey)
+    ```
+    
+    Returns JWT `accessToken`
+  </Step>
+  
+  <Step title="Use Bearer Token">
+    Include the access token in all subsequent requests:
+    
+    ```bash
+    Authorization: Bearer {accessToken}
+    ```
+    
+    **Note**: Tokens expire - re-authenticate proactively
+  </Step>
+</Steps>
+
+## Environments
+
+| Environment | Base URL |
+|-------------|----------|
+| **Sandbox** | `https://sandbox.monnify.com` |
+| **Production** | `https://api.monnify.com` |
+
+[Test Credentials & Cards](https://developers.monnify.com/docs/test-cards)
+
+## Key API Endpoints
+
+<Accordion title="Collections (Payments)">
+  **One-Time Payments:**
+  - `POST /api/v1/merchant/transactions/init-transaction` - Initialize transaction
+  - `GET /api/v2/merchant/transactions/query` - Query payment status
+  
+  **Reserved Accounts:**
+  - `POST /api/v2/bank-transfer/reserved-accounts` - Create reserved account
+  - `GET /api/v2/bank-transfer/reserved-accounts/{accountReference}` - Get account details
+  
+  **Direct Debits:**
+  - `POST /api/v1/direct-debit/mandate/create` - Create mandate
+  - `POST /api/v1/direct-debit/account/debit` - Execute debit
+  
+  [Full Collections API](https://developers.monnify.com/docs/collections)
+</Accordion>
+
+<Accordion title="Disbursements (Transfers)">
+  **Transfers:**
+  - `POST /api/v2/disbursements/single` - Initiate single transfer
+  - `POST /api/v2/disbursements/batch` - Initiate bulk transfer
+  - `POST /api/v2/disbursements/single/validate-otp` - Authorize with OTP
+  - `GET /api/v2/disbursements/wallet-balance` - Check wallet balance
+  
+  **Transfer Status:**
+  - `GET /api/v2/disbursements/single/summary` - Single transfer status
+  - `GET /api/v2/disbursements/bulk/{batchReference}/transactions` - Bulk batch status
+  
+  **Note**: Disbursements require approval from sales@monnify.com
+  
+  [Full Disbursements API](https://developers.monnify.com/docs/disbursements)
+</Accordion>
+
+<Accordion title="Sub-Accounts & Splitting">
+  **Transaction Splitting:**
+  - `POST /api/v1/sub-accounts` - Create sub-account
+  - Configure `incomeSplitConfig` in payment requests
+  - Split revenue across up to 5 sub-accounts
+  
+  [Transaction Splitting Guide](https://developers.monnify.com/docs/collections/transaction-splitting-sub-account)
+</Accordion>
+
+<Accordion title="Verification">
+  **Live Environment Only:**
+  - `GET /api/v1/disbursements/account/validate` - Validate bank account
+  - BVN/NIN verification (requires approval)
+  
+  [Verification APIs](https://developers.monnify.com/docs/verification-api)
+</Accordion>
+
+## Webhooks
+
+Monnify sends webhook notifications for transaction events. Validate using SHA-512 HMAC:
+
+```javascript
+const crypto = require('crypto');
+const signature = crypto
+  .createHmac('sha512', secretKey)
+  .update(rawRequestBody)
+  .digest('hex');
+
+// Compare with 'monnify-signature' header
+if (signature === request.headers['monnify-signature']) {
+  // Valid webhook
+}
+```
+
+**Always verify server-side** using the Query Transaction API before delivering value.
+
+[Webhook Documentation](https://developers.monnify.com/docs/collections/webhooks)
+
+## POS Terminal API
+
+Integrate with Moniepoint POS terminals:
+
+- **Push transactions** to terminals: `POST /v1/transactions`
+- **Query status**: `GET /v1/transactions/merchants/{merchantReference}`
+- **Webhook events**: Real-time transaction notifications
+- **Authentication**: API Key-based Bearer Token
+
+[POS API Documentation](https://docs.pos.moniepoint.com/)
+
+## Important Notes
+
+<Note>
+  - All amounts are in **kobo** (NGN subunits) - 10000 = ₦100.00
+  - **Always verify transactions server-side** before delivering value
+  - Deposits are **NDIC-insured** (up to ₦500,000 per depositor)
+  - Operations comply with **Nigeria Data Protection Act 2023**
+  - Default pay-in fee: **1.5% capped at ₦2,000**
+  - Bank transfers settle **same day at 10 PM**
+  - Cards/USSD settle **next working day at 10 PM**
+</Note>
+
+## Features Requiring Approval
+
+Contact sales@monnify.com or integration-support@monnify.com for:
+
+- **Disbursements** (transfers/payouts)
+- **Sub-accounts** (transaction splitting)
+- **Wallets** (sub-wallet creation)
+- **Bills Payment** (airtime, data, utilities)
+- **Verification APIs** (BVN/NIN - live only)
+- **Offline Collections** (agent cash payments)
+
+## SDKs & Integration Tools
+
+<CardGroup cols={2}>
+  <Card title="Web SDK" icon="window" href="https://developers.monnify.com/docs/integration-tools/sdk">
+    JavaScript checkout popup - MonnifySDK.initialize()
+  </Card>
+  
+  <Card title="Mobile SDKs" icon="mobile" href="https://developers.monnify.com/docs/integration-tools/sdk#android">
+    Native Android, iOS, Flutter SDKs
+  </Card>
+  
+  <Card title="Server Libraries" icon="code" href="https://developers.monnify.com/docs/integration-tools/plugin-libraries">
+    Node.js, PHP, Python, React wrapper
+  </Card>
+  
+  <Card title="E-commerce Plugins" icon="cart-shopping" href="https://developers.monnify.com/docs/integration-tools/plugin-libraries#woocommerce">
+    WooCommerce, WHMCS plugins
+  </Card>
+</CardGroup>
+
+## Using with AI Tools
+
+Add Moniepoint's llms.txt to your AI context:
+
+```bash
+# Direct URL
+https://developers.monnify.com/llms.txt
+
+# Or use with Claude Desktop
+{
+  "mcpServers": {
+    "moniepoint": {
+      "command": "npx",
+      "args": ["-y", "@nigerianfintechllmstxt/server", "--provider", "moniepoint"]
+    }
+  }
+}
+```
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="Monnify API Docs" icon="book" href="https://developers.monnify.com/">
+    Complete API documentation and guides
+  </Card>
+  
+  <Card title="API Explorer" icon="flask" href="https://developers.monnify.com/api">
+    Interactive API testing (Scalar-powered)
+  </Card>
+  
+  <Card title="POS Terminal API" icon="credit-card-front" href="https://docs.pos.moniepoint.com/">
+    POS integration documentation
+  </Card>
+  
+  <Card title="Support Center" icon="life-ring" href="https://support.moniepoint.com/">
+    Help articles and FAQs
+  </Card>
+  
+  <Card title="API Status" icon="signal" href="https://monnify.statuspage.io/">
+    Real-time uptime monitoring
+  </Card>
+  
+  <Card title="Engineering Blog" icon="newspaper" href="https://engineering.moniepoint.com/">
+    Technical insights and R&D
+  </Card>
+</CardGroup>
+
+## Additional Services
+
+<Accordion title="Business Services">
+  - **Business Savings**: Up to 17.5% p.a. interest (Fixed Deposit)
+  - **Working Capital Loans**: Collateral-free loans from ₦1M (24-40% p.a.)
+  - **Expense Cards**: Corporate debit cards with spending controls
+  - **Moniebook**: Automated bookkeeping and inventory management
+  - **CAC Registration**: Business name registration (₦19,000)
+  
+  [Business Solutions](https://moniepoint.com/ng/business)
+</Accordion>
+
+<Accordion title="Personal Banking">
+  - **Personal Account**: Free account with debit card
+  - **Savings**: Up to 17.5% p.a. interest
+  - **Bill Payments**: Airtime, data, electricity, cable TV
+  - **USSD Banking**: *5573# for offline access
+  
+  [Personal Banking](https://moniepoint.com/ng/personal)
+</Accordion>
+
+## llms.txt File
+
+The Moniepoint llms.txt file is available at:
+
+**Source**: `~/workspace/source/moniepoint/llms.txt`
+
+**Online**: [https://developers.monnify.com/llms.txt](https://developers.monnify.com/llms.txt)
+
+This file contains comprehensive documentation for:
+- Payment collection APIs (Monnify)
+- Disbursement and transfer APIs
+- Reserved accounts (virtual accounts)
+- Direct debit mandates
+- POS terminal integration
+- Verification APIs
+- Webhook handling
+- Authentication flow
+- SDKs and integration tools
+- Test credentials and sample data

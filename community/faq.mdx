@@ -1,0 +1,170 @@
+---
+title: 'FAQ'
+description: 'Frequently asked questions about Nigerian Fintech LLMs.txt'
+---
+
+## General Questions
+
+<AccordionGroup>
+  <Accordion title="What is llms.txt and why does it matter?">
+    `llms.txt` is a standard format that helps Large Language Models (LLMs) quickly understand and navigate documentation. Instead of crawling through entire documentation sites, AI tools can read a single, well-structured file that contains all the essential information.
+    
+    For Nigerian fintech APIs, this means:
+    - Faster integration with AI coding assistants
+    - More accurate code generation
+    - Better understanding of API capabilities and limitations
+    - Reduced hallucinations from AI tools
+  </Accordion>
+
+  <Accordion title="Why did you create this collection?">
+    This project was born from building the [Mono MCP server](https://github.com/sin4ch/mono-mcp). During development with coding agents, LLMs struggled to extract relevant information from large documentation sites. Creating structured `llms.txt` files solved this problem dramatically.
+    
+    The goal is to help Nigerian fintech companies adopt this standard natively on their documentation sites, making it easier for developers to build with AI assistance.
+  </Accordion>
+
+  <Accordion title="Which Nigerian fintech providers are currently included?">
+    Currently, the collection includes:
+    
+    - **Mono** - Open Banking (financial data access, payments, identity verification)
+    - **OPay** - Payments (gateway with cards, bank transfers, USSD, wallet, POS)
+    - **Paystack** - Payments (processing, transfers, subscriptions, terminals)
+    
+    Note: Flutterwave already has [native llms.txt support](https://developer.flutterwave.com/llms.txt) through Mintlify.
+  </Accordion>
+
+  <Accordion title="Is this an official project by these fintech companies?">
+    No, this is an independent, open-source project. The `llms.txt` files are created by parsing and structuring publicly available documentation.
+    
+    The goal is for these companies to eventually adopt these files natively on their own documentation sites. If you work for one of these companies, we'd love to collaborate!
+  </Accordion>
+</AccordionGroup>
+
+## Using llms.txt Files
+
+<AccordionGroup>
+  <Accordion title="How do I use these files with AI coding assistants?">
+    The usage depends on your AI tool:
+    
+    **With Claude/ChatGPT:**
+    1. Copy the content from the relevant `llms.txt` file
+    2. Paste it into your conversation before asking integration questions
+    3. Reference specific sections when asking about API endpoints
+    
+    **With coding agents:**
+    - Point your agent to the raw GitHub URL of the `llms.txt` file
+    - Configure it as a context source before starting your task
+    
+    **With MCP servers:**
+    - Use tools like the Mono MCP server that natively understand these files
+    - Configure the file path in your MCP server settings
+  </Accordion>
+
+  <Accordion title="Can I use these files offline?">
+    Yes! Clone the [GitHub repository](https://github.com/sin4ch/nigerian-fintech-llms-txt) and access all files locally:
+    
+    ```bash
+    git clone https://github.com/sin4ch/nigerian-fintech-llms-txt.git
+    cd nigerian-fintech-llms-txt
+    ```
+    
+    Then point your AI tools to the local file paths.
+  </Accordion>
+
+  <Accordion title="Do these files work with all AI tools?">
+    These files work best with:
+    - AI coding assistants that support context files (Cursor, GitHub Copilot, etc.)
+    - Chat interfaces that accept long-form context (Claude, ChatGPT)
+    - MCP servers and other AI agent frameworks
+    - Tools that specifically support the llms.txt standard
+    
+    The files are formatted according to the [llms.txt specification](https://llmstxt.org/), so any tool supporting this standard should work.
+  </Accordion>
+
+  <Accordion title="Are these files up-to-date with the latest API changes?">
+    We strive to keep these files current, but they may not always reflect the very latest changes. This is another reason why native adoption by fintech companies is important.
+    
+    If you notice outdated information:
+    1. Check the official documentation
+    2. Open an issue on GitHub with details
+    3. Or submit a pull request with the updates
+  </Accordion>
+</AccordionGroup>
+
+## Contributing
+
+<AccordionGroup>
+  <Accordion title="How can I add a new Nigerian fintech provider?">
+    To add a new provider:
+    
+    1. **Create a directory** with the provider name in the repository
+    2. **Create an llms.txt file** with two main sections:
+       - Documentation overview (guides, concepts, SDKs)
+       - API reference (endpoints, methods, parameters)
+       - Separate sections with `---`
+    3. **Follow the format** used in existing files (Mono, OPay, Paystack)
+    4. **Update the README** to include the new provider in the table
+    5. **Submit a pull request** with a clear description
+    
+    See the [Contributing Guide](/contributing/overview) for detailed instructions.
+  </Accordion>
+
+  <Accordion title="What should I include in an llms.txt file?">
+    A good `llms.txt` file should include:
+    
+    **Documentation Overview:**
+    - Getting started guides
+    - Core concepts and terminology
+    - Authentication methods
+    - SDK information
+    - Common use cases
+    
+    **API Reference:**
+    - All API endpoints with descriptions
+    - Request/response formats
+    - Required and optional parameters
+    - Error codes and handling
+    - Rate limits and constraints
+    
+    The goal is to give an LLM everything it needs to help a developer integrate the API.
+  </Accordion>
+
+  <Accordion title="Do I need permission from the fintech company to contribute?">
+    No permission is needed to contribute, as these files are based on publicly available documentation. The project is open source under the MIT License.
+    
+    However, we encourage:
+    - Respecting trademark and branding guidelines
+    - Accurate representation of the APIs
+    - Proper attribution to the original documentation
+    
+    The ultimate goal is for companies to adopt these files natively.
+  </Accordion>
+</AccordionGroup>
+
+## Legal and Licensing
+
+<AccordionGroup>
+  <Accordion title="What license is this project under?">
+    This project is licensed under the MIT License. This means:
+    
+    - You can use these files freely
+    - You can modify and distribute them
+    - You can use them in commercial projects
+    - No warranty is provided
+    
+    See the [LICENSE](https://github.com/sin4ch/nigerian-fintech-llms-txt/blob/main/LICENSE) file for full details.
+  </Accordion>
+
+  <Accordion title="Can fintech companies use these files on their own sites?">
+    Absolutely! That's the goal. If you represent a fintech company:
+    
+    1. You can adopt your `llms.txt` file directly on your documentation site
+    2. You can modify it to better suit your needs
+    3. You can use tools like [Mintlify](https://www.mintlify.com/docs/ai/llmstxt) to auto-generate and maintain it
+    
+    We'd love to hear from you if you decide to implement it natively!
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Have a question not answered here? Ask on [GitHub Discussions](https://github.com/sin4ch/nigerian-fintech-llms-txt/discussions) or open an [issue](https://github.com/sin4ch/nigerian-fintech-llms-txt/issues).
+</Note>

@@ -1,0 +1,304 @@
+---
+title: OPay
+description: Leading Nigerian payment gateway with multiple payment methods
+---
+
+## Overview
+
+OPay is a leading Nigerian fintech company providing secure, PCI-compliant RESTful payment APIs for accepting and processing payments. The platform operates in **Nigeria and Egypt**, supporting NGN and USD currencies with comprehensive payment solutions through Express Checkout, Server-Side APIs, and Mobile SDKs.
+
+<CardGroup cols={2}>
+  <Card title="Countries" icon="globe">
+    Nigeria, Egypt
+  </Card>
+  <Card title="Currencies" icon="money-bill">
+    NGN, USD
+  </Card>
+  <Card title="Integration" icon="code">
+    Cashier, Server APIs, Mobile SDKs
+  </Card>
+  <Card title="Fee Structure" icon="percent">
+    Competitive rates (contact OPay for details)
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Express Checkout" icon="shopping-cart" href="https://documentation.opaycheckout.com/checkout-overview">
+    Hosted payment page (OPay Cashier) for seamless integration
+  </Card>
+  
+  <Card title="3DS Card Payments" icon="credit-card" href="https://documentation.opaycheckout.com/3DS-API">
+    3D Secure card payment integration with redirect flow
+  </Card>
+  
+  <Card title="Bank Transfer" icon="building-columns" href="https://documentation.opaycheckout.com/bank-transfer">
+    Generate virtual accounts for bank transfer payments
+  </Card>
+  
+  <Card title="Bank Account Debit" icon="money-bill-transfer" href="https://documentation.opaycheckout.com/bank-account">
+    Direct bank account debit with OTP/3DS verification
+  </Card>
+  
+  <Card title="USSD Payment" icon="phone" href="https://documentation.opaycheckout.com/bank-Ussd">
+    USSD-based payment integration for offline payments
+  </Card>
+  
+  <Card title="OPay Wallet" icon="wallet" href="https://documentation.opaycheckout.com/opay-wallet-payment">
+    QR code payment via OPay Wallet
+  </Card>
+</CardGroup>
+
+## Payment Methods
+
+<Tabs>
+  <Tab title="Nigeria (NGN)">
+    **Available Payment Methods:**
+    - **BankCard**: Visa/Mastercard with 3DS
+    - **BankTransfer**: Bank transfer to virtual account
+    - **BankUssd**: USSD payment
+    - **BankAccount**: Direct bank account debit
+    - **OpayWalletNg**: OPay Wallet payment
+    - **OpayWalletNgQR**: OPay Wallet QR code
+    - **ReferenceCode**: Reference code for POS/offline
+  </Tab>
+  
+  <Tab title="Nigeria (USD)">
+    **Available Payment Methods:**
+    - **BankCard**: International cards with 3DS
+    
+    **Note**: USD payments require billing information (address, postal code, etc.)
+  </Tab>
+</Tabs>
+
+## Integration Options
+
+<Accordion title="Express Checkout (OPay Cashier)">
+  Hosted payment page integration - redirect customers to OPay's checkout.
+  
+  ```json
+  POST /api/v1/international/cashier/create
+  
+  {
+    "reference": "unique-order-123",
+    "country": "NG",
+    "amount": {
+      "total": 10000,
+      "currency": "NGN"
+    },
+    "product": {
+      "name": "Product Name",
+      "description": "Product description"
+    },
+    "returnUrl": "https://yoursite.com/payment/success",
+    "callbackUrl": "https://yoursite.com/webhook/opay"
+  }
+  ```
+  
+  [View Documentation](https://documentation.opaycheckout.com/cashier-create)
+</Accordion>
+
+<Accordion title="Server-Side APIs">
+  Full control over checkout UI/UX with direct API integration.
+  
+  **Available APIs:**
+  - 3DS Card Payment
+  - Bank Transfer Payment
+  - Bank USSD Payment
+  - Bank Account Payment
+  - POS Payment
+  - Reference Code Payment
+  - OPay Wallet QR Payment
+  
+  [View Server APIs Overview](https://documentation.opaycheckout.com/server-apis-overview)
+</Accordion>
+
+<Accordion title="Mobile SDKs">
+  Native SDKs for mobile platforms:
+  - **Android SDK**: Java/Kotlin integration
+  - **iOS SDK**: Swift/Objective-C integration
+  - **Flutter SDK**: Cross-platform apps
+  - **React Native SDK**: React Native module
+  
+  [View Mobile SDKs](https://documentation.opaycheckout.com/android-sdk)
+</Accordion>
+
+<Accordion title="E-Commerce Plugins">
+  - **WooCommerce**: WordPress/WooCommerce payment gateway
+  - More plugins coming soon
+  
+  [View WooCommerce Plugin](https://documentation.opaycheckout.com/woocommerce-plugin)
+</Accordion>
+
+## Authentication Methods
+
+OPay uses two authentication methods:
+
+<Tabs>
+  <Tab title="Public Key Auth">
+    Used for **Cashier Create Payment API**
+    
+    ```
+    Authorization: Bearer {PublicKey}
+    MerchantId: {YourMerchantId}
+    ```
+  </Tab>
+  
+  <Tab title="Signature Auth (HMAC-SHA512)">
+    Used for **all other payment APIs**
+    
+    1. Create JSON payload with alphabetically sorted keys
+    2. Compute HMAC-SHA512 using your Secret Key
+    3. Use hex-encoded result as signature
+    
+    ```javascript
+    const crypto = require('crypto');
+    const signature = crypto.createHmac('sha512', secretKey)
+        .update(JSON.stringify(data))
+        .digest('hex');
+    ```
+  </Tab>
+</Tabs>
+
+## API Environments
+
+| Environment | Base URL |
+|-------------|----------|
+| Sandbox (Testing) | `https://testapi.opaycheckout.com` |
+| Production (Live) | `https://liveapi.opaycheckout.com` |
+| Offline Payments | `https://payapi.opayweb.com` |
+
+## Payment Status Values
+
+| Status | Description |
+|--------|-------------|
+| INITIAL | Payment created, awaiting customer action |
+| PENDING | Payment in progress |
+| SUCCESS | Payment completed successfully |
+| FAIL | Payment failed |
+| CLOSE | Payment closed/cancelled |
+
+## Webhooks
+
+OPay sends POST requests to your callback URL when transaction status changes.
+
+```json
+{
+  "payload": {
+    "amount": "49160",
+    "channel": "Web",
+    "country": "NG",
+    "currency": "NGN",
+    "reference": "order-123",
+    "status": "SUCCESS",
+    "transactionId": "220507145660712931829"
+  },
+  "sha512": "9f605d69f04e94172875dc156537071...",
+  "type": "transaction-status"
+}
+```
+
+**Verification Required**: Always verify the webhook signature and query payment status via API before delivering value.
+
+[View Webhook Documentation](https://documentation.opaycheckout.com/payment-notifications-callbacks)
+
+## Testing
+
+OPay provides comprehensive test data for sandbox testing:
+
+<Accordion title="Test Cards (NGN)">
+  | Card Number | CVV | Expiry | PIN | OTP | Status |
+  |-------------|-----|--------|-----|-----|--------|
+  | 5061460410121111104 | 560 | 12/50 | 1104 | 543210 | SUCCESS |
+  | 5061460410121111105 | 561 | 12/50 | 1105 | 543210 | SUCCESS |
+  | 5061460410121111106 | 562 | 12/50 | 1106 | 543210 | SUCCESS |
+  | 5061460410121111107 | 563 | 12/50 | 1107 | 123456 | FAIL |
+</Accordion>
+
+<Accordion title="Test Cards (USD)">
+  | Card Number | CVV | Expiry | Status |
+  |-------------|-----|--------|--------|
+  | 4508750015741019 | 100 | 12/50 | SUCCESS |
+  | 5123450000000008 | 100 | 12/50 | SUCCESS |
+  | 2223000000000007 | 100 | 12/50 | FAIL |
+</Accordion>
+
+<Accordion title="Test Bank Account">
+  | Field | Value |
+  |-------|-------|
+  | Bank Code | 033 |
+  | Account Number | 2215381184 |
+  | Phone | 0000000000 |
+  | DOB | 05-01-1990 |
+  | BVN | 123456789 |
+</Accordion>
+
+[View Complete Test Data](https://documentation.opaycheckout.com/end-to-end-testing)
+
+## Important Notes
+
+<Note>
+  - All API requests must be made over **HTTPS**
+  - Amounts are in **minor units** (100 kobos = 1 NGN, 100 cents = 1 USD)
+  - Always **verify webhooks** by checking signature and calling Query Status API
+  - Use **idempotent references** - each payment needs a unique reference
+  - **Sandbox environment** available for testing before production
+</Note>
+
+## Using with AI Tools
+
+Add OPay's llms.txt to your AI context:
+
+```bash
+# Direct URL
+https://documentation.opaycheckout.com/llms.txt
+
+# Or use with Claude Desktop
+{
+  "mcpServers": {
+    "opay": {
+      "command": "npx",
+      "args": ["-y", "@nigerianfintechllmstxt/server", "--provider", "opay"]
+    }
+  }
+}
+```
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="API Documentation" icon="book" href="https://documentation.opaycheckout.com">
+    Complete developer documentation portal
+  </Card>
+  
+  <Card title="Merchant Dashboard" icon="gauge" href="https://merchant.opaycheckout.com">
+    Manage your account and API keys
+  </Card>
+  
+  <Card title="Signature Calculator" icon="calculator" href="https://documentation.opaycheckout.com/api-signature">
+    HMAC-SHA512 signature generation tool
+  </Card>
+  
+  <Card title="Support" icon="life-ring" href="https://support.opaycheckout.com/support/ticket">
+    Contact OPay support team
+  </Card>
+</CardGroup>
+
+## llms.txt File
+
+The OPay llms.txt file is available at:
+
+**Source**: `~/workspace/source/opay/llms.txt`
+
+**Online**: [https://documentation.opaycheckout.com/llms.txt](https://documentation.opaycheckout.com/llms.txt)
+
+This file contains comprehensive documentation for:
+- Express Checkout integration
+- Server-side payment APIs
+- Mobile SDK integration
+- Authentication methods
+- Webhook handling
+- Error codes
+- Test credentials
+- Offline payments API

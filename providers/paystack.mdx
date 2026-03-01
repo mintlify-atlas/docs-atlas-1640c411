@@ -1,0 +1,220 @@
+---
+title: Paystack
+description: Africa's leading payments infrastructure provider
+---
+
+## Overview
+
+Paystack is Africa's leading payments infrastructure provider, enabling businesses to accept payments from customers via cards, bank accounts, mobile money, USSD, QR codes, and bank transfers. The platform operates in **Nigeria, Ghana, South Africa, Kenya, and Côte d'Ivoire**, supporting both online and in-person payments.
+
+<CardGroup cols={2}>
+  <Card title="Countries" icon="globe">
+    Nigeria, Ghana, South Africa, Kenya, Côte d'Ivoire
+  </Card>
+  <Card title="Currencies" icon="money-bill">
+    NGN, GHS, ZAR, KES, USD
+  </Card>
+  <Card title="Integration" icon="code">
+    Popup JS, Redirect, Mobile SDKs, Terminal
+  </Card>
+  <Card title="Settlement" icon="clock">
+    Same day for transfers (10 PM), next working day for cards
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Accept Payments" icon="credit-card" href="https://paystack.com/docs/payments/accept-payments/">
+    Multiple integration methods: Popup JS, Redirect API, Mobile SDKs for collecting one-time and recurring payments
+  </Card>
+  
+  <Card title="Subscriptions" icon="repeat" href="https://paystack.com/docs/payments/subscriptions/">
+    Create plans and manage recurring subscription billing with automatic charges
+  </Card>
+  
+  <Card title="Transfers" icon="paper-plane" href="https://paystack.com/docs/transfers/">
+    Send money to bank accounts and mobile money wallets with single or bulk transfers
+  </Card>
+  
+  <Card title="Dedicated Virtual Accounts" icon="building-columns" href="https://paystack.com/docs/payments/dedicated-virtual-accounts/">
+    Customer-specific bank accounts for receiving transfers (Nigeria & Ghana)
+  </Card>
+  
+  <Card title="Terminal" icon="tablet" href="https://paystack.com/docs/terminal/">
+    In-person payment solutions: Physical Terminal, Virtual Terminal, and Terminal API
+  </Card>
+  
+  <Card title="Split Payments" icon="scissors" href="https://paystack.com/docs/payments/split-payments/">
+    Split transaction settlements between main account and subaccounts
+  </Card>
+</CardGroup>
+
+## Payment Channels by Country
+
+<Tabs>
+  <Tab title="Nigeria (NGN)">
+    - **Cards**: Visa, Mastercard, Verve
+    - **Bank Transfer**: Virtual account transfers
+    - **USSD**: Dial-to-pay codes
+    - **QR Code**: Scan-to-pay
+    - **Apple Pay**: Digital wallet
+  </Tab>
+  
+  <Tab title="Ghana (GHS)">
+    - **Cards**: Visa, Mastercard
+    - **Mobile Money**: MTN, AirtelTigo, Telecel
+    - **Bank Transfer**: Virtual accounts
+    - **QR Code**: Scan-to-pay
+  </Tab>
+  
+  <Tab title="South Africa (ZAR)">
+    - **Cards**: Visa, Mastercard
+    - **Apple Pay**: Digital wallet
+    - **QR Code**: Scan-to-pay
+  </Tab>
+  
+  <Tab title="Kenya (KES)">
+    - **Cards**: Visa, Mastercard
+    - **Mobile Money**: M-PESA, Airtel Money
+  </Tab>
+  
+  <Tab title="Côte d'Ivoire (XOF)">
+    - **Cards**: Visa, Mastercard
+    - **Mobile Money**: MTN MoMo, Wave, Orange Money
+    - **Apple Pay**: Digital wallet
+  </Tab>
+</Tabs>
+
+## Integration Options
+
+<Accordion title="Popup JS (InlineJS)">
+  JavaScript SDK for web payment integration with Popup checkout. Best for web applications requiring seamless in-page checkout.
+  
+  ```javascript
+  const paystack = new PaystackPop();
+  paystack.newTransaction({
+    key: 'pk_test_xxxxxxxxxxxxx',
+    email: 'customer@email.com',
+    amount: 10000, // Amount in kobo (100 NGN)
+    onSuccess: (transaction) => {
+      console.log('Payment successful!', transaction);
+    },
+    onCancel: () => {
+      console.log('Payment cancelled');
+    }
+  });
+  ```
+  
+  [View Documentation](https://paystack.com/docs/developer-tools/inlinejs/)
+</Accordion>
+
+<Accordion title="Mobile SDKs">
+  Native SDKs for mobile platforms:
+  - **Android SDK**: Kotlin/Java integration
+  - **iOS SDK**: Swift/Objective-C integration
+  - **Flutter SDK**: Cross-platform mobile apps
+  
+  [View Mobile Integration Guides](https://paystack.com/docs/developer-tools/)
+</Accordion>
+
+<Accordion title="Server-Side Libraries">
+  Official libraries for backend integration:
+  - Node.js
+  - Python
+  - PHP
+  - Ruby
+  - Java
+  - .NET
+  
+  [View Libraries](https://paystack.com/docs/libraries-and-plugins/libraries/)
+</Accordion>
+
+<Accordion title="E-commerce Plugins">
+  Ready-made plugins for popular platforms:
+  - WooCommerce
+  - Shopify
+  - Magento
+  - PrestaShop
+  - Joomla
+  - BigCommerce
+  
+  [View Plugins](https://paystack.com/docs/libraries-and-plugins/plugins/)
+</Accordion>
+
+## Identity Verification
+
+Paystack provides KYC tools for verifying customer identity and bank details:
+
+- **Verify Account Number**: Confirm bank account ownership before transfers (Nigeria & Ghana)
+- **Validate Customer**: BVN and identity verification for Dedicated Virtual Account customers
+- **Resolve Card BIN**: Get card information from the first 6 digits of a card number
+
+[Learn more about Identity Verification](https://paystack.com/docs/identity-verification/)
+
+## Important Notes
+
+<Note>
+  - All amounts are in **smallest currency unit** (kobo for NGN, pesewas for GHS, cents for KES/ZAR/USD)
+  - Always **verify transactions server-side** before delivering value
+  - Test mode uses test API keys (`sk_test_*`, `pk_test_*`)
+  - Live mode uses live keys (`sk_live_*`, `pk_live_*`)
+  - Webhooks provide real-time notifications; validate signatures using your secret key
+</Note>
+
+## Using with AI Tools
+
+Add Paystack's llms.txt to your AI context:
+
+```bash
+# Direct URL
+https://paystack.com/llms.txt
+
+# Or use with Claude Desktop
+{
+  "mcpServers": {
+    "paystack": {
+      "command": "npx",
+      "args": ["-y", "@nigerianfintechllmstxt/server", "--provider", "paystack"]
+    }
+  }
+}
+```
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="API Documentation" icon="book" href="https://paystack.com/docs/api/">
+    Complete REST API reference with all endpoints
+  </Card>
+  
+  <Card title="Developer Community" icon="users" href="https://paystack.slack.com">
+    Join the Payslack community on Slack
+  </Card>
+  
+  <Card title="OpenAPI Spec" icon="file-code" href="https://github.com/PaystackOSS/openapi">
+    Machine-readable API specification
+  </Card>
+  
+  <Card title="Support Center" icon="life-ring" href="https://support.paystack.com/">
+    Help articles and customer support
+  </Card>
+</CardGroup>
+
+## llms.txt File
+
+The Paystack llms.txt file is available at:
+
+**Source**: `~/workspace/source/paystack/llms.txt`
+
+**Online**: [https://paystack.com/llms.txt](https://paystack.com/llms.txt)
+
+This file contains comprehensive documentation for:
+- Payment processing APIs
+- Transfer and payout endpoints
+- Customer management
+- Subscription billing
+- Identity verification
+- Terminal integration
+- Webhook events
+- Error codes and troubleshooting

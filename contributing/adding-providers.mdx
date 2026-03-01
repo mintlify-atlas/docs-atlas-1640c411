@@ -1,0 +1,397 @@
+---
+title: 'Adding a New Provider'
+description: 'Step-by-step guide to contributing Nigerian fintech documentation'
+---
+
+## Before You Start
+
+Ensure the provider:
+- Is a Nigerian fintech platform (or operates significantly in Nigeria)
+- Has public API documentation
+- Doesn't already exist in the [repository](https://github.com/sin4ch/nigerian-fintech-llms)
+- Serves developers (APIs, SDKs, integration guides)
+
+<Tip>
+Not sure if a provider fits? [Open an issue](https://github.com/sin4ch/nigerian-fintech-llms/issues/new) to discuss before investing time.
+</Tip>
+
+## Prerequisites
+
+- GitHub account
+- Git installed locally
+- Text editor
+- Basic familiarity with Markdown
+- Understanding of the [llms.txt format](/contributing/format-guide)
+
+## Step-by-Step Process
+
+<Steps>
+  <Step title="Fork and clone the repository">
+    Fork the repository on GitHub, then clone your fork locally:
+    
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/nigerian-fintech-llms.git
+    cd nigerian-fintech-llms
+    ```
+  </Step>
+  
+  <Step title="Create a new branch">
+    Create a descriptive branch for your contribution:
+    
+    ```bash
+    git checkout -b add-provider-name
+    ```
+    
+    Use a clear branch name like `add-kuda`, `add-flutterwave`, or `add-budpay`.
+  </Step>
+  
+  <Step title="Create the provider directory">
+    Create a new directory named after the provider (lowercase, no spaces):
+    
+    ```bash
+    mkdir providername
+    cd providername
+    ```
+    
+    **Examples:**
+    - Kuda Bank → `kuda/`
+    - Flutterwave → `flutterwave/`
+    - VFD Microfinance Bank → `vfd/`
+  </Step>
+  
+  <Step title="Research and compile documentation">
+    Thoroughly review the provider's official documentation:
+    
+    **Gather information about:**
+    - Company overview and services
+    - Authentication methods
+    - Available environments (sandbox/production)
+    - Getting started guides
+    - Integration tutorials
+    - SDK documentation
+    - API endpoints and methods
+    - Webhook/callback information
+    - Error handling
+    - Rate limits and best practices
+    
+    **Best sources:**
+    - Official developer documentation
+    - API reference pages
+    - GitHub repositories
+    - Integration guides
+    - SDKs and code examples
+    
+    <Note>
+    Focus on developer-facing documentation. Avoid marketing content or end-user help articles.
+    </Note>
+  </Step>
+  
+  <Step title="Create the llms.txt file">
+    Inside the provider directory, create `llms.txt`:
+    
+    ```bash
+    touch llms.txt
+    ```
+    
+    Follow the [format guide](/contributing/format-guide) to structure your file:
+    
+    1. **Start with the header and overview:**
+       ```markdown
+       # Provider Name
+       
+       > Comprehensive description of the provider, their services,
+       > supported regions, and main use cases.
+       
+       Important notes:
+       
+       - Authentication: How API authentication works
+       - Environments: Sandbox and production details
+       - Currency: How amounts are handled
+       - Key concepts: Important integration details
+       ```
+    
+    2. **Organize documentation links by category:**
+       ```markdown
+       ## Getting Started
+       
+       - [Quick Start](url): What developers learn here
+       - [Authentication](url): Authentication methods explained
+       
+       ## Main Product
+       
+       - [Feature Overview](url): Introduction to the feature
+       - [Integration Guide](url): Step-by-step integration
+       ```
+    
+    3. **Add the separator and API reference:**
+       ```markdown
+       ---
+       
+       # API Reference
+       
+       > Brief description of the API structure and authentication
+       
+       ## API Environments
+       
+       | Environment | Base URL |
+       |-------------|----------|
+       | Test | https://api.test.provider.com |
+       | Live | https://api.provider.com |
+       ```
+    
+    4. **Document key endpoints:**
+       ```markdown
+       ## Resource Name
+       
+       ### Endpoint Name
+       `POST /endpoint/path`
+       
+       Description of what this endpoint does.
+       
+       **Request Parameters:**
+       - `param1` (string, required): Description
+       - `param2` (integer, optional): Description
+       
+       **Response:** What the API returns
+       ```
+  </Step>
+  
+  <Step title="Test the llms.txt file">
+    Verify your file is well-structured:
+    
+    **Manual checks:**
+    - [ ] File follows the two-section structure (overview, then API reference)
+    - [ ] Contains `---` separator between sections
+    - [ ] All URLs are valid and accessible
+    - [ ] Descriptions are clear and concise
+    - [ ] Formatting is consistent
+    - [ ] No typos or grammatical errors
+    
+    **Test with AI tools (optional but recommended):**
+    - Use Claude, ChatGPT, or another LLM with file upload
+    - Upload your `llms.txt` file
+    - Ask questions like:
+      - "How do I authenticate API requests?"
+      - "What endpoints are available for payments?"
+      - "Show me how to create a transaction"
+    - Verify the LLM can extract accurate information
+    
+    <Tip>
+    Testing with an actual AI tool helps identify missing information or unclear descriptions.
+    </Tip>
+  </Step>
+  
+  <Step title="Update the README (if applicable)">
+    If the provider represents a new category or is a major platform, consider adding it to the main README's provider table.
+    
+    Edit `README.md` and add a row:
+    
+    ```markdown
+    | [Provider Name](https://provider.com) | Category | Brief description |
+    ```
+    
+    **Categories:**
+    - Open Banking
+    - Payments
+    - Lending
+    - Identity Verification
+    - Mobile Money
+    - Business Banking
+  </Step>
+  
+  <Step title="Commit your changes">
+    Stage and commit your new files:
+    
+    ```bash
+    git add providername/llms.txt
+    git commit -m "Add Provider Name llms.txt documentation"
+    ```
+    
+    If you updated the README:
+    
+    ```bash
+    git add README.md
+    git commit -m "Add Provider Name to README"
+    ```
+    
+    <Note>
+    Use clear, descriptive commit messages that explain what you're adding.
+    </Note>
+  </Step>
+  
+  <Step title="Push to your fork">
+    Push your branch to your GitHub fork:
+    
+    ```bash
+    git push origin add-provider-name
+    ```
+  </Step>
+  
+  <Step title="Create a pull request">
+    1. Navigate to the [original repository](https://github.com/sin4ch/nigerian-fintech-llms)
+    2. Click "Pull requests" → "New pull request"
+    3. Click "compare across forks"
+    4. Select your fork and branch
+    5. Click "Create pull request"
+    
+    **Write a clear PR description:**
+    
+    ```markdown
+    ## Summary
+    Adds llms.txt documentation for [Provider Name]
+    
+    ## Provider Details
+    - **Name:** Provider Name
+    - **Category:** Payment Gateway / Open Banking / etc.
+    - **Website:** https://provider.com
+    - **Docs:** https://docs.provider.com
+    
+    ## Checklist
+    - [x] Created provider directory with llms.txt file
+    - [x] Followed the standard format structure
+    - [x] Verified all documentation links are accessible
+    - [x] Tested file with AI tool (if applicable)
+    - [x] Updated README (if applicable)
+    
+    ## Notes
+    [Any additional context, challenges, or questions]
+    ```
+  </Step>
+  
+  <Step title="Respond to review feedback">
+    A maintainer will review your pull request and may:
+    - Request changes or clarifications
+    - Suggest improvements to organization or descriptions
+    - Ask for additional information
+    
+    **To make changes:**
+    
+    1. Make the requested edits locally
+    2. Commit the changes:
+       ```bash
+       git add .
+       git commit -m "Address review feedback"
+       git push origin add-provider-name
+       ```
+    3. The PR will automatically update
+    
+    <Tip>
+    Be responsive to feedback - maintainers are helping ensure quality and consistency.
+    </Tip>
+  </Step>
+</Steps>
+
+## Review Process
+
+### What Reviewers Check
+
+Maintainers will verify:
+
+1. **Format compliance** - File follows the llms.txt structure
+2. **Accuracy** - Information matches official documentation
+3. **Completeness** - Covers major features and APIs
+4. **Clarity** - Descriptions are helpful and concise
+5. **Links** - All URLs are valid and accessible
+6. **Organization** - Logical categorization of documentation
+
+### Timeline
+
+Review times vary based on:
+- Maintainer availability
+- Complexity of the contribution
+- Number of pending PRs
+
+Typically expect feedback within 3-7 days.
+
+<Note>
+This is an open-source project maintained by volunteers. Please be patient!
+</Note>
+
+## After Your PR is Merged
+
+Congratulations! Your contribution is now part of the project.
+
+**Your llms.txt file will:**
+- Be available in the main repository
+- Help AI tools understand the provider's APIs
+- Support developers building integrations
+- Potentially be adopted by the fintech company itself
+
+**Next steps:**
+- Star the repository to show support
+- Share the project with other developers
+- Consider contributing updates or additional providers
+- Join discussions in GitHub issues
+
+## Tips for Success
+
+<CardGroup cols={2}>
+  <Card title="Start Simple" icon="seedling">
+    Begin with major features and endpoints. You can always add more detail in follow-up PRs.
+  </Card>
+  <Card title="Study Examples" icon="book">
+    Review existing llms.txt files to understand structure and level of detail.
+  </Card>
+  <Card title="Use Official Docs" icon="link">
+    Always reference the provider's official documentation as your source of truth.
+  </Card>
+  <Card title="Test Thoroughly" icon="flask">
+    Verify links work and information is accurate before submitting.
+  </Card>
+</CardGroup>
+
+## Common Mistakes to Avoid
+
+- **Broken links** - Always verify URLs are accessible
+- **Missing separator** - Don't forget the `---` between sections
+- **Vague descriptions** - Be specific about what each link covers
+- **Marketing language** - Focus on technical implementation, not sales copy
+- **Outdated information** - Use the latest API version
+- **Inconsistent formatting** - Follow the established patterns
+- **Incomplete API reference** - Include authentication and base URLs
+
+## Getting Help
+
+Need assistance?
+
+- **Format questions** - Review the [format guide](/contributing/format-guide)
+- **Technical issues** - [Open an issue](https://github.com/sin4ch/nigerian-fintech-llms/issues/new)
+- **General questions** - Comment on your PR or start a discussion
+
+## Example Directory Structure
+
+After completing these steps, your contribution should look like:
+
+```
+nigerian-fintech-llms/
+├── mono/
+│   └── llms.txt
+├── paystack/
+│   └── llms.txt
+├── opay/
+│   └── llms.txt
+├── yourprovider/          # Your new addition
+│   └── llms.txt           # Your new file
+└── README.md
+```
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="Format Guide" icon="file-lines" href="/contributing/format-guide">
+    Detailed llms.txt format specification
+  </Card>
+  <Card title="Contributing Overview" icon="hand-wave" href="/contributing/overview">
+    Understanding the contribution process
+  </Card>
+  <Card title="llms.txt Standard" icon="external-link" href="https://llmstxt.org">
+    Official llms.txt specification
+  </Card>
+  <Card title="GitHub Repository" icon="github" href="https://github.com/sin4ch/nigerian-fintech-llms">
+    View the project on GitHub
+  </Card>
+</CardGroup>
+
+---
+
+Ready to contribute? Start with [Step 1](#step-by-step-process) above and make your first contribution to Nigerian fintech documentation!

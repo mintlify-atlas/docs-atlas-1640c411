@@ -1,0 +1,74 @@
+---
+title: Nigerian Fintech LLMs.txt
+description: A collection of llms.txt files for Nigerian fintech APIs, designed to help Large Language Models better understand and work with these platforms.
+---
+
+A collection of [`llms.txt`](https://llmstxt.org/) files for Nigerian fintech APIs, designed to help Large Language Models (LLMs) better understand and work with these platforms.
+
+## Featured Providers
+
+<CardGroup cols={2}>
+  <Card title="Mono" icon="building-columns" href="/providers/mono">
+    Open Banking platform for financial data access, payments, and identity verification across Nigeria, Ghana, Kenya, and South Africa.
+  </Card>
+  
+  <Card title="Paystack" icon="credit-card" href="/providers/paystack">
+    Leading payment infrastructure for accepting payments via cards, bank transfers, mobile money, USSD, QR codes, and subscriptions.
+  </Card>
+  
+  <Card title="OPay" icon="wallet" href="/providers/opay">
+    Comprehensive payment gateway with 3D Secure card payments, bank transfers, USSD, wallet, and POS solutions for Nigeria and Egypt.
+  </Card>
+  
+  <Card title="Moniepoint" icon="money-bill-transfer" href="/providers/moniepoint">
+    CBN-licensed financial institution providing payment gateway (Monnify), POS terminals, business banking, and disbursement APIs.
+  </Card>
+</CardGroup>
+
+## Why This Project Exists
+
+While building the [Mono MCP server](https://github.com/sin4ch/mono-mcp) with coding agents, I found that LLMs struggled to extract relevant information from large documentation sites. These `llms.txt` files solve that problem - they're open source so these companies can adopt them to help developers build faster with AI.
+
+<Note>
+  [Flutterwave already has `llms.txt`](https://developer.flutterwave.com/llms.txt) via Mintlify's [automatic generation](https://www.mintlify.com/docs/ai/llmstxt).
+</Note>
+
+## What's Included
+
+Each provider in this repository has a single `llms.txt` file containing:
+
+- **Documentation overview** with guides, concepts, and SDKs
+- **Complete API reference** with endpoints and methods
+
+The files follow the [llms.txt standard](https://llmstxt.org/) format, making them easy for AI tools to parse and understand.
+
+## How to Use
+
+These files can be used with AI coding assistants, chatbots, or any LLM-powered tool that supports the `llms.txt` standard.
+
+<Tip>
+  Point your LLM tool to the relevant `llms.txt` file to give it context about the API before asking integration questions.
+</Tip>
+
+## Provider Coverage
+
+| Provider | Category | Coverage |
+|----------|----------|----------|
+| **Mono** | Open Banking | Nigeria, Ghana, Kenya, South Africa |
+| **Paystack** | Payments | Nigeria, Ghana, South Africa, Kenya, Côte d'Ivoire |
+| **OPay** | Payments | Nigeria, Egypt |
+| **Moniepoint** | Banking & Payments | Nigeria |
+
+## Get Started
+
+Explore the documentation for each provider to learn how to use their APIs with AI-powered development tools:
+
+<CardGroup cols={2}>
+  <Card title="What is llms.txt?" icon="circle-question" href="/overview/what-is-llmstxt">
+    Learn about the llms.txt standard and how it helps LLMs understand documentation.
+  </Card>
+  
+  <Card title="How to Use" icon="book-open" href="/overview/how-to-use">
+    Get started using these files with AI coding assistants and LLM tools.
+  </Card>
+</CardGroup>
